@@ -6,7 +6,7 @@ Kahverengi temali, kullanici adi + sifre ile giris yapan, admin cevapli sohbet u
 
 - Uygulamada email alani yoktur.
 - Ana sayfada sadece `kullanici adi` ve `sifre` ile giris yapilir.
-- Yeni kullanici kaydi arayuzden kapatilmis durumdadir.
+- Yeni kullanici, ilk giriste kullanici adi + sifresiyle otomatik olusturulur.
 - Admin paneline sadece sabit admin hesabi erisebilir.
 - Admin kullanici adi: `admin`
 - Admin sifresi: `367600dtA`
@@ -49,7 +49,7 @@ Sonra `Trigger deploy > Clear cache and deploy`.
 
 ## 4) Kullanim
 
-1. Ana sayfada (`/`) kullanici adi + sifre ile giris yap.
+1. Ana sayfada (`/`) kullanici adi + sifre ile giris yap. Hesap yoksa ilk giriste otomatik acilir.
 2. Mesaj gonder.
 3. `admin / 367600dtA` ile giris yapip `Admin Panel`e gir.
 4. Kullanici mesajlarini admin panelinden cevapla.
@@ -60,3 +60,4 @@ Sonra `Trigger deploy > Clear cache and deploy`.
 npm install
 npx netlify dev
 ```
+

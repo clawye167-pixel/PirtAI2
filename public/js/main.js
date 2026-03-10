@@ -306,9 +306,9 @@
       return {};
     });
 
-    if (response.status === 401) {
+    if (response.status === 401 && state.token) {
       clearSessionView();
-      throw new Error("Oturum kapandi. Tekrar giris yap.");
+      throw new Error(payload.error || "Oturum kapandi. Tekrar giris yap.");
     }
 
     if (!response.ok) {
@@ -390,3 +390,4 @@
       .replace(/'/g, "&#039;");
   }
 })();
+

@@ -5,9 +5,12 @@
   getBearerToken,
   createDbClient,
   createToken,
+  hashPassword,
   verifyPassword,
   getSessionUser,
-  normalizeUsername
+  normalizeUsername,
+  validateUsername,
+  validatePassword
 } = require("./_shared");
 
 function sessionExpiryIso() {
@@ -50,14 +53,46 @@ exports.handler = async (event) => {
       return jsonResponse(400, { error: "Kullanici adi ve sifre zorunlu." });
     }
 
-    const { data: user, error: userError } = await db
+    const usernameError = validateUsername(username);
+    if (usernameError) {
+      return jsonResponse(400, { error: usernameError });
+    }
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      return jsonResponse(400, { error: passwordError });
+    }
+
+    let { data: user, error: userError } = await db
       .from("app_users")
       .select("id,username,role,password_hash")
       .eq("username", username)
       .maybeSingle();
 
-    if (userError || !user) {
-      return jsonResponse(401, { error: "Kullanici adi veya sifre hatali." });
+    if (userError) {
+      return jsonResponse(500, { error: "Kullanici kontrolu yapilamadi." });
+    }
+
+    if (!user) {
+      if (username === "admin") {
+        return jsonResponse(401, { error: "Kullanici adi veya sifre hatali." });
+      }
+
+      const { data: createdUser, error: createUserError } = await db
+        .from("app_users")
+        .insert({
+          username,
+          password_hash: hashPassword(password),
+          role: "user"
+        })
+        .select("id,username,role,password_hash")
+        .single();
+
+      if (createUserError) {
+        return jsonResponse(500, { error: "Hesap olusturulamadi." });
+      }
+
+      user = createdUser;
     }
 
     if (!verifyPassword(password, user.password_hash)) {
@@ -105,3 +140,4 @@ exports.handler = async (event) => {
 
   return jsonResponse(400, { error: "Gecersiz action." });
 };
+
