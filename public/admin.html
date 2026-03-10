@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PirtAI Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="background-layer"></div>
+    <main class="page-shell admin-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">PirtAI</p>
+          <h1 class="brand-title">Admin Panel</h1>
+        </div>
+        <a class="secondary-btn" href="/index.html">Sohbete Don</a>
+        <div id="adminConversationList" class="conversation-list"></div>
+      </aside>
+
+      <section class="chat-area">
+        <header class="chat-header">
+          <div>
+            <h2 id="adminChatTitle">Sohbet sec</h2>
+            <p id="adminChatMeta" class="chat-subtitle">Kullanici cevaplari buradan yonetilir.</p>
+          </div>
+          <button id="adminLogoutBtn" class="ghost-btn" type="button">Cikis</button>
+        </header>
+
+        <div id="adminMessageList" class="message-list">
+          <p class="empty-state">Soldan bir kullanici sohbeti sec.</p>
+        </div>
+
+        <form id="adminComposerForm" class="composer-form">
+          <textarea id="adminMessageInput" rows="2" maxlength="4000" placeholder="Kullaniciya cevap yaz..." required></textarea>
+          <button id="adminSendBtn" class="primary-btn" type="submit">Yanitla</button>
+        </form>
+        <p id="adminStatus" class="status-line"></p>
+      </section>
+    </main>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

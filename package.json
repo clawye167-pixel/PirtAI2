@@ -1,0 +1,14 @@
+{
+  "name": "pirtai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PirtAI serverless chat app (Netlify + Supabase)",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo \"Static build tamam\"",
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.2"
+  }
+}
